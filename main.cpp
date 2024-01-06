@@ -3,7 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <fstream>  // Bao gồm thư viện này
-
+#include <iomanip>
 using namespace std;
 
 class Object {
@@ -14,11 +14,6 @@ private:
     string rotX, rotY, rotZ;
 
 public:
-    Object() : path(""), name(""),
-               posX("0"), posY("0"), posZ("0"),
-               scaleX("1"), scaleY("1"), scaleZ("1"),
-               rotX("0"), rotY("0"), rotZ("0") {
-    }
     Object(string path, string name, string posX, string posY, string posZ,
            string scaleX, string scaleY, string scaleZ,
            string rotX, string rotY, string rotZ)
@@ -29,6 +24,7 @@ public:
     }
 
     // Các phương thức getter
+    string getName() { return name; }
     string getPosX() { return posX; }
     string getPosY() { return posY; }
     string getPosZ() { return posZ; }
@@ -56,6 +52,7 @@ class Map {
 private:
     string name;
     vector<Object> objList;
+    string matrix[10][10];
 public:
     Map(string index) {
         name = index;
@@ -71,6 +68,31 @@ public:
 
     void setObj(vector<Object> list) {
         objList = list;
+    }
+
+    void setMatrix() {
+        for (int i = 0; i < objList.size(); i++) {
+            int x = stoi(objList[i].getPosX());
+            int y = stoi(objList[i].getPosY());
+            matrix[x][y] = objList[i].getName();
+        }
+    }
+
+
+    void printMatrix() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                // Set width to 5 for each cell (including brackets and padding) and fill with spaces for alignment
+                if (matrix[i][j] == "") {
+                    cout << setw(6) << " 0"; // Centering '0' with spaces
+                } else {
+                    // Print the content with brackets and ensure it's padded to width 5
+                    cout << setw(3) << "[" << matrix[i][j][0] << matrix[i][j][matrix[i][j].size() - 1] << "]";
+                }
+            }
+            cout << endl;
+        }
+        cout << endl;
     }
 };
 
@@ -93,6 +115,7 @@ bool readFile(const string &filename) {
         if (line.empty()) { // Khi gặp một dòng trống(chuyển sang map khác)
             if (!curMap.getIndex().empty()) { // Kiểm tra xem có bản đồ hiện tại không
                 curMap.setObj(curObjList);
+                curMap.setMatrix();
                 mapList.push_back(curMap); // Lưu bản đồ hiện tại vào danh sách
                 curMap = Map(""); // Reset bản đồ hiện tại
                 curObjList.clear();
@@ -136,9 +159,8 @@ bool readFile(const string &filename) {
 
 
 int main() {
-    vector<Object> objL;
-    Object obj;
-    objL.push_back(obj);
-    cout << "hj";
-
+    readFile("map.txt");
+    for (int i = 0; i < mapList.size(); i++) {
+        mapList[i].printMatrix();
+    }
 }
