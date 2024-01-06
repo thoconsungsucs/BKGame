@@ -62,6 +62,10 @@ public:
         return name;
     };
 
+    const string (*getMatrix() const)[10] {
+        return matrix;
+    }
+
     vector<Object> getList() {
         return objList;
     }
@@ -150,7 +154,9 @@ bool readFile(const string &filename) {
 
     if (!curMap.getIndex().empty()) { // Lưu bản đồ cuối cùng nếu có
         curMap.setObj(curObjList);
+        curMap.setMatrix();
         mapList.push_back(curMap);
+
     }
 
     input.close();
@@ -160,7 +166,14 @@ bool readFile(const string &filename) {
 
 int main() {
     readFile("map.txt");
-    for (int i = 0; i < mapList.size(); i++) {
-        mapList[i].printMatrix();
+    const string (*sourceMatrix)[10] = mapList[2].getMatrix();
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            if (sourceMatrix[i][j] != "")
+                cout << sourceMatrix[i][j];
+            else
+                cout << "0";
+        }
+        cout << endl;
     }
 }
