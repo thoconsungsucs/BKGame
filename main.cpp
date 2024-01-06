@@ -198,6 +198,7 @@ bool readFile(const string &filename) {
     return true;
 }
 
+<<<<<<< HEAD
 void printMatrix(string matrix[10][10]) {
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
@@ -277,9 +278,43 @@ void play() {
                 break;
         }
     } while (flag);
+=======
+void printMap()
+{
+    for (int i = 0; i < mapList.size(); i++) {
+        mapList[i].printMatrix();
+    }
+>>>>>>> a9db1ec98a49534cdf32d0e484c5d234ff2e1698
 }
 
 int main() {
     readFile("map.txt");
+<<<<<<< HEAD
     play();
+=======
+    int choice;
+    cout << "MENU\n";
+    cout << "1:Play.\n";
+    cout << "2:Find path.\n";
+    cout << "3:Create map.\n";
+    cout << "4:Change in map.\n";
+    cout << "5:Cheking for validity.\n";
+    cout << "Enter choice:";
+    cin >> choice;
+    cin.ignore();
+    if (choice == 1)
+    {
+        string name_map;
+        cout << "Enter a name for a new map:";
+        getline(cin,name_map);
+        Map mymap(name_map);
+        mapList.push_back(mymap);
+        cout << "Succesfully create a new map name:" << name_map << endl;
+        printMap();
+    }
+    else if (choice == 2)
+    {
+
+    }
+>>>>>>> a9db1ec98a49534cdf32d0e484c5d234ff2e1698
 }
