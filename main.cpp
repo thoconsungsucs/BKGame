@@ -163,10 +163,37 @@ bool readFile(const string &filename) {
     return true;
 }
 
+void printMap()
+{
+    for (int i = 0; i < mapList.size(); i++) {
+        mapList[i].printMatrix();
+    }
+}
 
 int main() {
     readFile("map.txt");
-    for (int i = 0; i < mapList.size(); i++) {
-        mapList[i].printMatrix();
+    int choice;
+    cout << "MENU\n";
+    cout << "1:Play.\n";
+    cout << "2:Find path.\n";
+    cout << "3:Create map.\n";
+    cout << "4:Change in map.\n";
+    cout << "5:Cheking for validity.\n";
+    cout << "Enter choice:";
+    cin >> choice;
+    cin.ignore();
+    if (choice == 1)
+    {
+        string name_map;
+        cout << "Enter a name for a new map:";
+        getline(cin,name_map);
+        Map mymap(name_map);
+        mapList.push_back(mymap);
+        cout << "Succesfully create a new map name:" << name_map << endl;
+        printMap();
+    }
+    else if (choice == 2)
+    {
+
     }
 }
