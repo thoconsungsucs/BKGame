@@ -166,14 +166,7 @@ bool readFile(const string &filename) {
 
 int main() {
     readFile("map.txt");
-    const string (*sourceMatrix)[10] = mapList[2].getMatrix();
-    for (int i = 0; i < 10; ++i) {
-        for (int j = 0; j < 10; ++j) {
-            if (sourceMatrix[i][j] != "")
-                cout << sourceMatrix[i][j];
-            else
-                cout << "0";
-        }
-        cout << endl;
+    for (int i = 0; i < mapList.size(); i++) {
+        mapList[i].printMatrix();
     }
 }
